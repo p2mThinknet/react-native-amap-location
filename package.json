@@ -1,6 +1,6 @@
 {
   "name": "react-native-amap-location",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Android amap location sdk for react native",
   "main": "index.js",
   "private": false,
@@ -14,11 +14,13 @@
   "keywords": [
     "react",
     "native",
-    "mapview",
+    "geoloc",
+    "location",
+    "Mars",
     "android"
   ],
-  "author": "laoqiu",
-  "license": "BSD",
+  "author": "xiaobuu",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/xiaobuu/react-native-amap-location/issues"
   },
