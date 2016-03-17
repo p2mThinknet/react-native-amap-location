@@ -1,6 +1,9 @@
 # React Native AMap Location
 高得安卓定位SDK的Reac Native版本. [AMap Android Location SDK](http://lbs.amap.com/api/android-location-sdk/).
 
+在国内由于众所周知的原因，安卓机子在国内几乎没法使用wifi定位，导致LBS应用很难通过RN自带的geoloc实现。所以在国内还是用个SDK比较好。
+
+
 ## Example
 ```
 ...
@@ -9,7 +12,7 @@ componentDidMount() {
   AMapLocation.startLocation({
     accuracy: 'HighAccuracy',
     killProcess: true,
-
+    needDetail: true,
   });
 }
 
@@ -17,6 +20,32 @@ componentWillUnmount() {
   this.unlisten();
 }
 ...
+
+/*
+result:
+{
+  accuracy: 29
+  adCode: "310114"
+  address: "上海市嘉定区嘉三路靠近同济大学嘉定校区华楼"
+  altitude: 0
+  bearing: 0
+  city: "上海市"
+  cityCode: "021"
+  country: "中国"
+  district: "嘉定区"
+  latitude: 31.285728
+  locationDetail: "-1"
+  locationType: 4
+  longitude: 121.217404
+  poiName: "同济大学嘉定校区华楼"
+  provider: "lbs"
+  province: "上海市"
+  satellites: 0
+  speed: 0
+  street: "嘉松北路"
+  streetNum: "6128号"
+}
+*/
 ```
 
 ## Install
@@ -67,8 +96,9 @@ import com.xiaobu.amap.AMapLocationReactPackage;
 ...
 ```
 
-### Step 5 - Add manifest
+### Step 5 - Add service apik key and permissions
 ```
+// file: android/srsettings.gradle
 <!--用于进行网络定位-->
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
 <!--用于访问GPS定位-->
@@ -93,27 +123,34 @@ import com.xiaobu.amap.AMapLocationReactPackage;
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:theme="@style/AppTheme">
-      <service android:name="com.amap.api.location.APSService"></service>  <--- Add service
+      <service android:name="com.amap.api.location.APSService"></service>
+      <meta-data
+         android:name="com.amap.api.v2.apikey"
+         android:value="Your api key here"/>
 ...
 ```
 
 
 ### Functions
-startLocation(option)
+startLocation(options)
 
 stopLocation()
 
-addEventListener(Callback)
-
+unlistenFn = addEventListener(Callback(result))
 
 ### Options
-
-needMars | false | 是否需要火星坐标
-accuracy | HighAccuracy, BatterySaving or DeviceSensors
-needAddress | true
-onceLocation | false
-wifiActiveScan | true
-mockEnable | false
-interval | 2000
-gpsFirst | false
-httpTimeOut | 30000
+```
+默认设置
+{
+  needDetail: false, // 显示详细信息
+  needMars: false, // 是否需要火星坐标，默认将火星坐标转为地球坐标
+  accuracy: 'HighAccuracy', // BatterySaving or DeviceSensors
+  needAddress: true,
+  onceLocation: false,
+  wifiActiveScan: true,
+  mockEnable: false,
+  interval: 2000,
+  gpsFirst: false,
+  httpTimeOut: 30000,
+}
+```
