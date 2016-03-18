@@ -6,6 +6,7 @@
 
 ## Example
 ```
+import AMapLocation from 'react-native-amap-location';
 ...
 componentDidMount() {
   this.unlisten = AMapLocation.addEventListener((data) => console.log('data', data));
@@ -17,6 +18,7 @@ componentDidMount() {
 }
 
 componentWillUnmount() {
+  AMapLocation.stopLocation();
   this.unlisten();
 }
 ...
@@ -96,7 +98,7 @@ import com.xiaobu.amap.AMapLocationReactPackage;
 ...
 ```
 
-### Step 5 - Add service apik key and permissions
+### Step 5 - Add service, api key and permissions
 ```
 // file: android/srsettings.gradle
 <!--用于进行网络定位-->
