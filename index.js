@@ -18,10 +18,8 @@ export default class ALocation {
 
     const listener = DeviceEventEmitter.addListener(
         onLocationChanged,
-        (loc) => {
-            handler(loc);
-        }
+        handler,
     );
-    return listener.remove;
+    return listener;
   }
 }

@@ -9,7 +9,7 @@
 import AMapLocation from 'react-native-amap-location';
 ...
 componentDidMount() {
-  this.unlisten = AMapLocation.addEventListener((data) => console.log('data', data));
+  this.listener = AMapLocation.addEventListener((data) => console.log('data', data));
   AMapLocation.startLocation({
     accuracy: 'HighAccuracy',
     killProcess: true,
@@ -19,7 +19,7 @@ componentDidMount() {
 
 componentWillUnmount() {
   AMapLocation.stopLocation();
-  this.unlisten();
+  this.listener.remove();
 }
 ...
 
@@ -133,12 +133,21 @@ import com.xiaobu.amap.AMapLocationReactPackage;
 ```
 
 
-### Functions
+### Usage
+```
+// 开始获取位置
 startLocation(options)
-
+```
+```
+// 停止获取位置
 stopLocation()
-
-unlistenFn = addEventListener(Callback(result))
+```
+```
+// 监听位置变化
+listener = addEventListener(Callback(result))
+// 移除监听
+listener.remove()
+```
 
 ### Options
 ```
@@ -146,13 +155,13 @@ unlistenFn = addEventListener(Callback(result))
 {
   needDetail: false, // 显示详细信息
   needMars: false, // 是否需要火星坐标，默认将火星坐标转为地球坐标
-  accuracy: 'HighAccuracy', // BatterySaving or DeviceSensors
-  needAddress: true,
-  onceLocation: false,
-  wifiActiveScan: true,
-  mockEnable: false,
-  interval: 2000,
-  gpsFirst: false,
-  httpTimeOut: 30000,
+  accuracy: 'HighAccuracy', // BatterySaving(低功耗定位模式), DeviceSensors(仅设备定位模式), HighAccuracy(高精度模式)
+  needAddress: true, // 设置是否返回地址信息
+  onceLocation: false, // 是否只定位一次
+  wifiActiveScan: true, // 设置是否强制刷新WIFI，默认为强制刷新,模式为仅设备模式(Device_Sensors)时无效
+  mockEnable: false, // 设置是否允许模拟位置,默认为false，不允许模拟位置,模式为低功耗模式(Battery_Saving)时无效
+  interval: 2000, // 设置定位间隔,单位毫秒,默认为2000ms
+  killProcess: false, // 设置退出时是否杀死service, 模式为仅设备模式(Device_Sensors)时无效
+  httpTimeOut: 30000, // 设置联网超时时间(ms), 模式为仅设备模式(Device_Sensors)时无效
 }
 ```
