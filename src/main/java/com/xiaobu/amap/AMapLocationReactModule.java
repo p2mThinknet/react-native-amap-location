@@ -98,7 +98,7 @@ public class AMapLocationReactModule extends ReactContextBaseJavaModule implemen
                         mLocationOption.setLocationMode(AMapLocationMode.Device_Sensors);
                         break;
                     case "HighAccuracy":
-                        mLocationOption.setLocationMode(AMapLocationMode.High_Accuracy);
+                        mLocationOption.setLocationMode(AMapLocationMode.Hight_Accuracy);
                         break;
                     default:
                         break;
