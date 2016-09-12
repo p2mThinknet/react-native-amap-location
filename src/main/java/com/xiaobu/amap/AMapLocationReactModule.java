@@ -194,8 +194,8 @@ public class AMapLocationReactModule extends ReactContextBaseJavaModule implemen
                     if (isAMapDataAvailable) {
                         // 在中国境内，火星了
                         double[] deltas = delta(latitude, longitude);
-                        latitude = latitude - deltas[0];
-                        longitude = longitude - deltas[1];
+                        latitude = latitude + deltas[0];
+                        longitude = longitude + deltas[1];
                     }
                 } catch (Exception ex) {
                     return null;
